@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_splash_root"
+    android:layout_width="match_parent"
+    android:background="@mipmap/luncher_bg"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_splash_version_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="18sp"
+        android:text="土豆版"/>
+
+    <ProgressBar
+        android:id="@+id/pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_splash_version_name"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
