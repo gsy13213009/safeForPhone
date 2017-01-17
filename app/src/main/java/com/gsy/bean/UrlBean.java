@@ -4,7 +4,7 @@ package com.gsy.bean;
  * 版本更新，网络解析的数据类
  */
 public class UrlBean {
-    private String version;             // 版本号
+    private int version;             // 版本号
     private String desc;                // 新版本描述信息
     private String url;                 // 新版本的地址
 
@@ -17,11 +17,11 @@ public class UrlBean {
         this.desc = desc;
     }
 
-    public String getVersion() {
+    public int getVersion() {
         return version;
     }
 
-    public void setVersion(String version) {
+    public void setVersion(int version) {
         this.version = version;
     }
 
