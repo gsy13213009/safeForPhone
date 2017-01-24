@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SafeForPhone</string>
+    <string name="activity_home_title">主界面</string>
+    <string name="activity_home_desc">你是我的小丫小卫士，怎么爱你都不嫌多，你的强大的功能测地把我给征服了</string>
 </resources>
