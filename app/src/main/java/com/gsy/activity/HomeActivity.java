@@ -1,6 +1,7 @@
 package com.gsy.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -128,7 +129,7 @@ public class HomeActivity extends AppCompatActivity {
                     // 密码的判断
                     etEnterStr = Md5Utils.md5(Md5Utils.md5(etEnterStr));
                     if (etEnterStr.equals(SpTools.getString(HomeActivity.this,Myconstant.PASSWORD,""))) {
-
+                        startActivity(new Intent(HomeActivity.this,LostFindActivity.class));
                     } else {
                         Toast.makeText(getApplicationContext(), "密码不正确", Toast.LENGTH_SHORT).show();
                         return;
