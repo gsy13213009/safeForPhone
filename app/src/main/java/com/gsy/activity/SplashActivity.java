@@ -128,7 +128,7 @@ public class SplashActivity extends AppCompatActivity {
                 int errorCode = -1;
                 mStartTimeMillis = System.currentTimeMillis();
                 try {
-                    url = new URL("http://192.168.0.105:8080/gsy/version.json");
+                    url = new URL("http://192.168.0.109:8080/gsy/version.json");
 
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");

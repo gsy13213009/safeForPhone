@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,7 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gsy.MeiYinConstant;
 import com.gsy.Myconstant;
+import com.gsy.utils.Md5Utils;
 import com.gsy.utils.SpTools;
 
 /**
@@ -24,6 +27,7 @@ import com.gsy.utils.SpTools;
  */
 public class HomeActivity extends AppCompatActivity {
 
+    private static final String TAG = "HomeActivity";
     private GridView mGvHomeMenus;
     private MyAdapter mMyAdapter;
 
@@ -52,7 +56,15 @@ public class HomeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:// 手机防盗，自定义对话框
-                        showSettingPassDialog();
+
+                        if (TextUtils.isEmpty(SpTools.getString(HomeActivity.this
+                                , Myconstant.PASSWORD, ""))) {
+                            // 设置密码对话框
+                            showSettingPassDialog();
+                        } else {
+                            // 输入密码对话框
+                            showEnterPassDialog();
+                        }
                         break;
                     case 1:
 
@@ -89,12 +101,53 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 显示自定义输入密码的对话框
+     */
+    private void showEnterPassDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = View.inflate(getApplicationContext(), R.layout.dialog_enter_password, null);
+        final EditText enterPass = (EditText) view.findViewById(R.id.et_dialog_enter_password);
+        Button btCancel = (Button) view.findViewById(R.id.bt_dialog_enter_password_cancel);
+        Button btCofirm = (Button) view.findViewById(R.id.bt_dialog_enter_password_confirm);
+
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+            }
+        });
+
+        btCofirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String etEnterStr = enterPass.getText().toString().trim();
+                if (TextUtils.isEmpty(etEnterStr)) {
+                    Toast.makeText(getApplicationContext(), "密码不能为空", Toast.LENGTH_SHORT).show();
+                } else {
+                    // 密码的判断
+                    etEnterStr = Md5Utils.md5(Md5Utils.md5(etEnterStr));
+                    if (etEnterStr.equals(SpTools.getString(HomeActivity.this,Myconstant.PASSWORD,""))) {
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "密码不正确", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    mDialog.dismiss();
+                }
+            }
+        });
+        builder.setView(view);
+        mDialog = builder.create();
+        mDialog.show();
+    }
+
     private void showSettingPassDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = View.inflate(getApplicationContext(), R.layout.dialog_setting_password, null);
         final EditText etOne = (EditText) view.findViewById(R.id.et_dialog_setting_password_one);
         final EditText etTwo = (EditText) view.findViewById(R.id.et_dialog_setting_password_two);
-        Button btCancel  = (Button) view.findViewById(R.id.bt_dialog_setting_password_cancel);
+        Button btCancel = (Button) view.findViewById(R.id.bt_dialog_setting_password_cancel);
         Button btCofirm = (Button) view.findViewById(R.id.bt_dialog_setting_password_confirm);
 
         btCancel.setOnClickListener(new View.OnClickListener() {
@@ -114,8 +167,11 @@ public class HomeActivity extends AppCompatActivity {
                 } else if (!etOneStr.equals(etTwoStr)) {
                     Toast.makeText(getApplicationContext(), "密码不一致", Toast.LENGTH_SHORT).show();
                 } else {
+                    // 两次md5加密
+                    String strMdPassword = Md5Utils.md5(Md5Utils.md5(etOneStr));
                     // 保存密码到sp中
-                    SpTools.putString(getApplicationContext(), Myconstant.PASSWORD,etOneStr);
+                    Log.d(MeiYinConstant.TAG, "[" + TAG + "] " + "Md5密码:" + strMdPassword);
+                    SpTools.putString(HomeActivity.this, Myconstant.PASSWORD, strMdPassword);
                     mDialog.dismiss();
                 }
             }

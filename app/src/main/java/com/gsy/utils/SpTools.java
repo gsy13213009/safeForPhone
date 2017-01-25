@@ -14,7 +14,7 @@ public class SpTools {
         sp.edit().putString(key, values).commit();
     }
 
-    public static String getString(Context context, String key, String values, String defValue) {
+    public static String getString(Context context, String key, String defValue) {
         SharedPreferences sp = context.getSharedPreferences(Myconstant.SPFILES, Context.MODE_PRIVATE);
         return sp.getString(key, defValue);
     }
