@@ -18,4 +18,14 @@ public class SpTools {
         SharedPreferences sp = context.getSharedPreferences(Myconstant.SPFILES, Context.MODE_PRIVATE);
         return sp.getString(key, defValue);
     }
+
+    public static void putBoolean(Context context, String key, boolean values) {
+        SharedPreferences sp = context.getSharedPreferences(Myconstant.SPFILES, Context.MODE_PRIVATE);
+        sp.edit().putBoolean(key, values).commit();
+    }
+
+    public static boolean getBoolean(Context context, String key, boolean defValue) {
+        SharedPreferences sp = context.getSharedPreferences(Myconstant.SPFILES, Context.MODE_PRIVATE);
+        return sp.getBoolean(key, defValue);
+    }
 }
