@@ -18,23 +18,25 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/unlock"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+        android:layout_height="45dp">
 
         <Button
+            android:id="@+id/bt_setup_bind_sim"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/bt_selector"
             android:gravity="left|center_vertical"
             android:text="点击绑定/解绑SIM卡"
             android:textColor="@android:color/black"
             android:textSize="18sp"/>
+
+        <ImageView
+            android:id="@+id/iv_bind_ic"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/unlock"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 
